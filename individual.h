@@ -1,5 +1,7 @@
 #pragma once
 
+#include "matData.h"
+
 class Individual {
 private:
   char* uvVoxelMap;
@@ -8,6 +10,7 @@ private:
 public:
   Individual(int dim);
   ~Individual();
+  void randomize(MatData* matData);
   int compare(const Individual& other) const;
   void calculateFitness(const Individual& desired);
   // mutation methods

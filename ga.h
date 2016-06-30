@@ -12,9 +12,19 @@ private:
   int populationSize;
   int currentGeneration;
   int totalGenerations;
+  // genetic algorithm methods
+  void initializeData();
+  void initializeRun();
+  void simulateEvolution();
+  void printPopulationData();
+  void printBestIndividualData();
+  void printAllIndividualData();
+  void calculateFitnesses();
+  void mutateIndividuals();
 public:
   GA(int pop,int gens);
   ~GA();
+  void runExperiment();
   // implementing multiple sorts because I want to see which one is faster
   // logically, insertion sort should be the slowest because of its Big Oh
   // However, after the first generation the population will be already

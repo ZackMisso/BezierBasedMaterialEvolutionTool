@@ -11,6 +11,38 @@ GA::~GA() {
   delete population;
 }
 
+void GA::runExperiments() {
+  // to be implemented
+}
+
+void GA::initializeData() {
+  // to be implemented
+}
+
+void GA::initializeRun() {
+  // to be implemented
+}
+
+void GA::printPopulationData() {
+  // to be implemented
+}
+
+void GA::printBestIndividualData() {
+  // to be implemented
+}
+
+void GA::printAllIndividualData() {
+  // to be implemented
+}
+
+void GA::calculateFitnesses() {
+  // to be implemented
+}
+
+void GA::mutateIndividuals() {
+  // to be implemented
+}
+
 void GA::insertionSort(Individual* objects,int start,int end) {
   // to be implemented
 }
