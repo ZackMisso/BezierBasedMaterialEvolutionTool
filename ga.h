@@ -4,11 +4,13 @@
 
 #include "individual.h"
 #include "matData.h"
+#include "programData.h"
 
 class GA {
 private:
   Individual* population;
   MaterialData* data;
+  ProgramData* programData;
   int populationSize;
   int currentGeneration;
   int totalGenerations;
@@ -21,6 +23,7 @@ private:
   void printAllIndividualData();
   void calculateFitnesses();
   void mutateIndividuals();
+  void sortIndividuals();
 public:
   GA(int pop,int gens);
   ~GA();

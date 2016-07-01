@@ -9,6 +9,7 @@ private:
   int fitness;
 public:
   Individual(int dim);
+  Individual(char* map,int dim);
   ~Individual();
   void randomize(MatData* matData);
   int compare(const Individual& other) const;

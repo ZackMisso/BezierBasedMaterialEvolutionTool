@@ -12,11 +12,19 @@ GA::~GA() {
 }
 
 void GA::runExperiments() {
-  // to be implemented
+  for(int i=0;i<totalGenerations;i++) {
+    calculateFitnesses();
+    if(programData->printingPopulationData) printPopulationData();
+    if(programData->printingAllIndividuals) printAllIndividualData();
+    if(programData->printingBestIndividual) printBestIndividualData();
+    sortIndividuals();
+    if(i!=totalGenerations-1) mutateIndividuals();
+  }
+  
 }
 
 void GA::initializeData() {
-  // to be implemented
+  for(int i=0;i<populationSize;i++) population[i].randomize(data);
 }
 
 void GA::initializeRun() {
@@ -40,6 +48,10 @@ void GA::calculateFitnesses() {
 }
 
 void GA::mutateIndividuals() {
+  // to be implemented
+}
+
+void GA::sortIndividuals() {
   // to be implemented
 }
 
