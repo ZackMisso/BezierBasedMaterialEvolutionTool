@@ -29,7 +29,7 @@ void Individual::initialize(int dim) {
 
 void Individual::randomize(MatData* matData) {
   int dim = dim8x >> 3;
-  Random::randomMat(uvVoxelMap,dim);
+  Random::randomMat(uvVoxelMap,dim,matData);
 }
 
 int Individual::compare(const Individual& other) const {

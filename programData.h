@@ -9,6 +9,9 @@ class ProgramData {
 public:
   Individual* evolved;
   Individual* desired;
+  float mutationChance;
+  float crossoverChance;
+  float crossoverWeight;
   int mutationRate;
   int crossoverRate;
   int populationSize;

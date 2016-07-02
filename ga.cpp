@@ -1,4 +1,5 @@
 #include "ga.h"
+#include "random.h"
 #include <iostream>
 
 using namespace std;
@@ -28,23 +29,23 @@ void GA::runExperiment() {
   for(int i=0;i<totalGenerations;i++) {
     // calculate the fitness for every individual
     calculateFitnesses();
+    // sort individuals by fitness
+    sortIndividuals();
     // print info if specified
     if(programData->printingPopulationData) printPopulationData();
     if(programData->printingAllIndividuals) printAllIndividualData();
     if(programData->printingBestIndividual) printBestIndividualData();
-    // sort individuals by fitness
-    sortIndividuals();
     // mutate the individuals if it is not the last generation
     if(i!=totalGenerations-1) mutateIndividuals();
   }
 }
 
 void GA::initializeData() {
-  for(int i=0;i<populationSize;i++) population[i].randomize(matData);
+  for(int i=0;i<populationSize;i++) population[i].initialize(programData->uvDimension);
 }
 
 void GA::initializeRun() {
-  // to be implemented
+  for(int i=0;i<populationSize;i++) population[i].randomize(matData);
 }
 
 void GA::printPopulationData() {
@@ -52,7 +53,7 @@ void GA::printPopulationData() {
 }
 
 void GA::printBestIndividualData() {
-  // to be implemented
+  cout << "Best Individual Fitness for Gen " << currentGeneration << ": " << population[0].getFitness() << endl;
 }
 
 void GA::printAllIndividualData() {
@@ -60,11 +61,19 @@ void GA::printAllIndividualData() {
 }
 
 void GA::calculateFitnesses() {
-  // to be implemented
+  for(int i=0;i<populationSize;i++) population[i].calculateFitness(*(programData->desired));
 }
 
 void GA::mutateIndividuals() {
-  // to be implemented
+  for(int i=0;i<populationSize;i++) {
+    float tmp = Random::getRandomFloat();
+    if(tmp < programData->mutationChance) population[i].mutate(programData->mutationRate);
+    else {
+      // TODO :: implement weight logic
+      int randInd = Random::getRandomIntNotIncluding(populationSize,i);
+      population[i].crossover(population[randInd],programData->crossoverRate);
+    }
+  }
 }
 
 void GA::sortIndividuals() {
@@ -94,6 +103,6 @@ void GA::mergeSort(Individual* objects,int start,int end) {
   while(tmp != midPoint) inds[i++] = objects[tmp++];
   while(tmp2 != end) inds[i++] = objects[tmp2++];
   for(int j=0;j<range;j++) objects[j+start] = inds[j];
-  delete inds;
+  delete[] inds;
 }
 

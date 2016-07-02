@@ -20,21 +20,27 @@ int main(int argc,char* argv[]) {
   // read in command line arguements
   for(int i=0;i<argc;i++) {
     // mutation rate flag
-    if(argv[i] == "-m") programData.mutationRate = atoi(argv[i++]);
+    if(!strcmp(argv[i],"-m")) programData.mutationRate = atoi(argv[++i]);
+    // mutation chance flag
+    else if(!strcmp(argv[i],"-mc")) programData.mutationChance = atof(argv[++i]);
     // crossover rate flag
-    else if(argv[i] == "-c") programData.crossoverRate = atoi(argv[++i]);
+    else if(!strcmp(argv[i],"-c")) programData.crossoverRate = atoi(argv[++i]);
+    // crossover chance flag
+    else if(!strcmp(argv[i],"-cc")) programData.crossoverChance = atof(argv[++i]);
     // population size flag
-    else if(argv[i] == "-pop") programData.populationSize = atoi(argv[++i]);
+    else if(!strcmp(argv[i],"-pop")) programData.populationSize = atoi(argv[++i]);
     // number of generations flag
-    else if(argv[i] == "-gens") programData.totalGenerations = atoi(argv[++i]);
+    else if(!strcmp(argv[i],"-gens")) programData.totalGenerations = atoi(argv[++i]);
     // printing population data flag
-    else if(argv[i] == "-pd") programData.printingPopulationData = true;
+    else if(!strcmp(argv[i],"-pd")) programData.printingPopulationData = true;
     // printing best individual flag
-    else if(argv[i] == "-pb") programData.printingBestIndividual = true;
+    else if(!strcmp(argv[i],"-pb")) programData.printingBestIndividual = true;
     // printing all individuals flag
-    else if(argv[i] == "-pa") programData.printingAllIndividuals = true;
+    else if(!strcmp(argv[i],"-pa")) programData.printingAllIndividuals = true;
     // run test suite
-    else if(argv[i] == "-test") if(!UnitTestSuite::runTests()) programData.brokenTests = true;
+    else if(!strcmp(argv[i],"-test")) {
+      if(!UnitTestSuite::runTests()) programData.brokenTests = true;
+    }
     // unrecognized arguement flag
     else cout << "Unrecognized Arguement: " << argv[i] << endl;
   }

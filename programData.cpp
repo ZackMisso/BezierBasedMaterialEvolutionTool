@@ -3,6 +3,9 @@
 ProgramData::ProgramData() {
   evolved = 0x0;
   desired = 0x0;
+  mutationChance = .800f;
+  crossoverChance = .200f;
+  crossoverWeight = .500f;
   mutationRate = 10;
   crossoverRate = 10;
   printingPopulationData = false;
