@@ -9,7 +9,7 @@
 class GA {
 private:
   Individual* population;
-  MaterialData* data;
+  MatData* matData;
   ProgramData* programData;
   int populationSize;
   int currentGeneration;
@@ -25,7 +25,7 @@ private:
   void mutateIndividuals();
   void sortIndividuals();
 public:
-  GA(int pop,int gens);
+  GA(ProgramData* pd,MatData* md);
   ~GA();
   void runExperiment();
   // implementing multiple sorts because I want to see which one is faster
@@ -37,6 +37,6 @@ public:
   // case scenario (already sorted) is O(N).
   void insertionSort(Individual* objects,int start,int end);
   void mergeSort(Individual* objects,int size);
-  void merge(Individual* one,int szOne,Individual* two,int szTwo);
+  Individual* merge(Individual* one,int szOne,Individual* two,int szTwo);
   void inOrderMergeSort(Individual* objects,int start,int end);
 };

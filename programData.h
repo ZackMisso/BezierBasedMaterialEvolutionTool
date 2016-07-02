@@ -11,9 +11,13 @@ public:
   Individual* desired;
   int mutationRate;
   int crossoverRate;
+  int populationSize;
+  int totalGenerations;
+  int uvDimension;
   bool printingPopulationData;
   bool printingBestIndividual;
-  bool pringitnAllIndividuals;
+  bool printingAllIndividuals;
+  bool brokenTests;
 
   ProgramData();
   ~ProgramData();

@@ -8,6 +8,8 @@ ProgramData::ProgramData() {
   printingPopulationData = false;
   printingBestIndividual = false;
   printingAllIndividuals = false;
+  brokenTests = false;
+  uvDimension = 40;
 }
 
 ProgramData::~ProgramData() {

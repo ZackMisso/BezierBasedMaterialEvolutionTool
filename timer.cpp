@@ -12,7 +12,7 @@ Timer::Timer(string param) {
   name = param;
 }
 
-~Timer::Timer() {
+Timer::~Timer() {
   while(history->getSize()) history->removeLast();
   delete history;
 }
@@ -26,11 +26,12 @@ void Timer::start() {
   current = clock();
 }
 
-void Timer::stop() {
+float Timer::stop() {
   clock_t time = clock();
   float interval = (time - current) / CLOCKS_PER_SEC;
   history->add(interval);
   current = time;
+  return interval;
 }
 
 void Timer::reset() {

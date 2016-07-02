@@ -1,4 +1,9 @@
 #include "individual.h"
+#include "random.h"
+
+Individual::Individual() {
+  // to be implemented
+}
 
 Individual::Individual(int dim) {
   dim8x = dim << 3;
@@ -16,12 +21,16 @@ Individual::~Individual() {
   delete uvVoxelMap;
 }
 
+void Individual::initialize(int dim) {
+  // to be implemented
+}
+
 void Individual::randomize(MatData* matData) {
   int dim = dim8x >> 3;
   Random::randomMat(uvVoxelMap,dim);
 }
 
-int Individual::compare(const Individual& other) {
+int Individual::compare(const Individual& other) const {
   int dim = dim8x >> 3;
   int diff = 0;
   for(int i=0;i<dim*dim;i++) {
@@ -31,7 +40,7 @@ int Individual::compare(const Individual& other) {
   return dim*dim - diff;
 }
 
-void calculateFitness(const Individual& desired) {
+void Individual::calculateFitness(const Individual& desired) {
   fitness = compare(desired);
 }
 
