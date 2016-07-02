@@ -1,4 +1,7 @@
 #include "unitTestSuite.h"
+#include <iostream>
+
+using namespace std;
 
 bool UnitTestSuite::runTests() {
   if(!mergeSortTest()) return false;
@@ -47,5 +50,5 @@ void UnitTestSuite::mergeSort(int* objects,int start,int end) {
   }
   while(tmp != midPoint) nums[i++] = objects[tmp++];
   while(tmp2 != end) nums[i++] = objects[tmp2++];
-  for(int i=0;i<range;i++) objects[i+start] = nums[i];
+  for(int j=0;j<range;j++) objects[j+start] = nums[j];
 }

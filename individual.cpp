@@ -2,7 +2,9 @@
 #include "random.h"
 
 Individual::Individual() {
-  // to be implemented
+  uvVoxelMap = 0x0;
+  dim8x = 0;
+  fitness = 0;
 }
 
 Individual::Individual(int dim) {
@@ -57,6 +59,21 @@ void Individual::mutate(int mutationRate) {
 
 void Individual::crossover(const Individual& other,int crossoverRate) {
   // to be implemented
+}
+
+bool Individual::operator>(const Individual& other) const {
+  return fitness > other.fitness;
+}
+
+bool Individual::operator<(const Individual& other) const {
+  return fitness < other.fitness;
+}
+
+void Individual::operator=(const Individual& other) {
+  if(uvVoxelMap) delete uvVoxelMap;
+  uvVoxelMap = other.uvVoxelMap;
+  dim8x = other.dim8x;
+  fitness = other.fitness;
 }
 
 int Individual::getFitness() { return fitness; }

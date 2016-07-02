@@ -19,6 +19,10 @@ public:
   // mutation methods
   void mutate(int mutationRate);
   void crossover(const Individual& other,int crossoverRate);
+  // operators
+  bool operator >(const Individual& other) const;
+  bool operator <(const Individual& other) const;
+  void operator =(const Individual& other);
   // getter methods
   int getFitness();
 };

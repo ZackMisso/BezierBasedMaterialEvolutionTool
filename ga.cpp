@@ -68,22 +68,32 @@ void GA::mutateIndividuals() {
 }
 
 void GA::sortIndividuals() {
-  // to be implemented
+  mergeSort(population,0,populationSize);
 }
 
 void GA::insertionSort(Individual* objects,int start,int end) {
   // to be implemented
 }
 
-void GA::mergeSort(Individual* objects,int size) {
-  
-  // to be implemented
+void GA::mergeSort(Individual* objects,int start,int end) {
+  int range = end - start;
+  int midPoint = (range >> 1) + start;
+  if(end - start != 1) {
+    mergeSort(objects,start,midPoint);
+    mergeSort(objects,midPoint,end);
+  }
+  Individual* inds = new Individual[range];
+  int tmp = start;
+  int tmp2 = midPoint;
+  int i=0;
+  while(tmp != midPoint && tmp2 != end) {
+    if(objects[tmp] < objects[tmp2]) inds[i] = objects[tmp2++];
+    else inds[i] = objects[tmp++];
+    i++;
+  }
+  while(tmp != midPoint) inds[i++] = objects[tmp++];
+  while(tmp2 != end) inds[i++] = objects[tmp2++];
+  for(int j=0;j<range;j++) objects[j+start] = inds[j];
+  delete inds;
 }
 
-Individual* GA::merge(Individual* one,int szOne,Individual* two,int szTwo) {
-  // to be implemented
-}
-
-void GA::inOrderMergeSort(Individual* objects,int start,int end) {
-  // to be implemented
-}

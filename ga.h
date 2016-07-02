@@ -36,7 +36,5 @@ public:
   // decently sorted. Meaning insertion sort will be fast since its best
   // case scenario (already sorted) is O(N).
   void insertionSort(Individual* objects,int start,int end);
-  void mergeSort(Individual* objects,int size);
-  Individual* merge(Individual* one,int szOne,Individual* two,int szTwo);
-  void inOrderMergeSort(Individual* objects,int start,int end);
+  void mergeSort(Individual* objects,int start,int end);
 };

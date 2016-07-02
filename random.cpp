@@ -19,3 +19,7 @@ float Random::getRandomFloat(float start,float end) {
   // to be implemented
   return 0.0f;
 }
+
+void Random::randomMat(char* mat,int dim) {
+  // to be implemented
+}
