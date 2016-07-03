@@ -46,7 +46,7 @@ int Individual::compare(const Individual& other) const {
     char tmp = uvVoxelMap[i] ^ other.uvVoxelMap[i];
     for(int j=0;j<8;j++) diff += (tmp >> j) & 0x1;
   }
-  return dim*dim - diff;
+  return dim8x*dim8x - diff;
 }
 
 void Individual::calculateFitness(const Individual& desired) {

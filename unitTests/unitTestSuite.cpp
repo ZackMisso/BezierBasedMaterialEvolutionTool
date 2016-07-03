@@ -13,6 +13,10 @@ bool UnitTestSuite::runTests() {
     cout << "Mutation Test Failed" << endl;
     return false;
   }
+  if(!individualCompareTest()) {
+    cout << "Individual Compare Test Failed" << endl;
+    return false;
+  }
   return true;
 }
 
@@ -125,4 +129,36 @@ void UnitTestSuite::mutate(unsigned char* one,int index,int index8) {
   if(!tmp) one[index] = (one[index] & (0xFF & ~(0x1 << index8)));
   else one[index] = (one[index] | (0x00 | (0x1 << index8)));
   //cout << "ACTUAL :: " << (int)one[index] << endl;
+}
+
+bool UnitTestSuite::individualCompareTest() {
+  unsigned char* one = new unsigned char[4];
+  unsigned char* two = new unsigned char[4];
+  unsigned char* three = new unsigned char[4];
+  one[0] = 0x0F;
+  one[1] = 0xF0;
+  one[2] = 0xFF;
+  one[3] = 0xFF;
+  three[0] = one[0];
+  three[1] = one[1];
+  three[2] = one[2];
+  three[3] = one[3];
+  two[0] = 0xF0;
+  two[1] = 0x0F;
+  two[2] = 0x00;
+  two[3] = 0x77;
+  //cout << "Test One: " << compare(one,two,4) << endl;
+  //cout << "Test Two: " << compare(one,three,4) << endl;
+  if(compare(one,two,4) != 6) return false;
+  if(compare(one,three,4) != 32) return false;
+  return true;
+}
+
+int UnitTestSuite::compare(unsigned char* one,unsigned char* two,int len) {
+  int diff = 0;
+  for(int i=0;i<len;i++) {
+    char tmp = one[i] ^ two[i];
+    for(int j=0;j<8;j++) diff += (tmp >> j) & 0x1;
+  }
+  return len*8 - diff;
 }
