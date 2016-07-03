@@ -9,16 +9,16 @@ using namespace std;
 
 int main(int argc,char* argv[]) {
   // temporary for testing
-  if(UnitTestSuite::runTests()) {
-    cout << "Tests succeeded" << endl;
-  } else {
-    cout << "Tests failed" << endl;
-  }
-  return 0;
+  //if(UnitTestSuite::runTests()) {
+  //  cout << "Tests succeeded" << endl;
+  //} else {
+  //  cout << "Tests failed" << endl;
+  //}
+  //return 0;
 
   ProgramData programData;
   // read in command line arguements
-  for(int i=0;i<argc;i++) {
+  for(int i=1;i<argc;i++) {
     // mutation rate flag
     if(!strcmp(argv[i],"-m")) programData.mutationRate = atoi(argv[++i]);
     // mutation chance flag

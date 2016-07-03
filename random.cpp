@@ -26,6 +26,9 @@ float Random::getRandomFloat(float start,float end) {
   return getRandomFloat() * (end - start) + start;
 }
 
-void Random::randomMat(char* mat,int dim,MatData* matData) {
-  // to be implemented
+void Random::randomMat(unsigned char* mat,int dim,MatData* matData) {
+  // Mat Data will be incorporated later
+  for(int i=0;i<dim;i++)
+    for(int j=0;j<dim;j++)
+      mat[i*dim+j] = (unsigned char)(rand() & 0xFF);
 }

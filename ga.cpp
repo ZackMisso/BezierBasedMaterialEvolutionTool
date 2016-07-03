@@ -6,6 +6,7 @@ using namespace std;
 
 GA::GA(ProgramData* pd,MatData* md) {
   populationSize = pd->populationSize;
+  //cout << "PopulationSize: " << populationSize;
   totalGenerations = pd->totalGenerations;
   //population = new Individual[populationSize](pd->uvDiminsion);
   population = new Individual[populationSize];
@@ -37,15 +38,21 @@ void GA::runExperiment() {
     if(programData->printingBestIndividual) printBestIndividualData();
     // mutate the individuals if it is not the last generation
     if(i!=totalGenerations-1) mutateIndividuals();
+    currentGeneration++;
   }
 }
 
 void GA::initializeData() {
   for(int i=0;i<populationSize;i++) population[i].initialize(programData->uvDimension);
+  programData->desired = new Individual();
+  // initialize the desired solution (test)
+  programData->desired->initializeZero(programData->uvDimension);
 }
 
 void GA::initializeRun() {
   for(int i=0;i<populationSize;i++) population[i].randomize(matData);
+  // fill in the data for the desired solution (test)
+  //programData->desired->randomize(matData);
 }
 
 void GA::printPopulationData() {

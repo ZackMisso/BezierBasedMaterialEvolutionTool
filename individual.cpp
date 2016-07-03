@@ -1,5 +1,8 @@
 #include "individual.h"
 #include "random.h"
+#include <iostream>
+
+using namespace std;
 
 Individual::Individual() {
   uvVoxelMap = 0x0;
@@ -9,11 +12,11 @@ Individual::Individual() {
 
 Individual::Individual(int dim) {
   dim8x = dim << 3;
-  uvVoxelMap = new char(dim*dim);
+  uvVoxelMap = new unsigned char[dim*dim];
   fitness = 0x0;
 }
 
-Individual::Individual(char* map,int dim) {
+Individual::Individual(unsigned char* map,int dim) {
   dim8x = dim << 3;
   uvVoxelMap = map;
   fitness = 0x0;
@@ -26,8 +29,15 @@ Individual::~Individual() {
 void Individual::initialize(int dim) {
   dim8x = dim << 3;
   if(uvVoxelMap) delete uvVoxelMap;
-  uvVoxelMap = new char(dim*dim);
+  uvVoxelMap = new unsigned char[dim*dim];
   fitness = 0x0;
+}
+
+void Individual::initializeZero(int dim) {
+  dim8x = dim << 3;
+  if(uvVoxelMap) delete uvVoxelMap;
+  uvVoxelMap = new unsigned char[dim*dim];
+  for(int i=0;i<dim*dim;i++) uvVoxelMap[i] = 0;
 }
 
 void Individual::resetFitness() {
@@ -43,7 +53,7 @@ int Individual::compare(const Individual& other) const {
   int dim = dim8x >> 3;
   int diff = 0;
   for(int i=0;i<dim*dim;i++) {
-    char tmp = uvVoxelMap[i] ^ other.uvVoxelMap[i];
+    unsigned char tmp = uvVoxelMap[i] ^ other.uvVoxelMap[i];
     for(int j=0;j<8;j++) diff += (tmp >> j) & 0x1;
   }
   return dim8x*dim8x - diff;
@@ -58,7 +68,7 @@ void Individual::mutate(int mutationRate) {
   for(int i=0;i<mutationRate;i++) {
     int index = Random::getRandomInt(dim*dim);
     int index8 = Random::getRandomInt(8);
-    char tmp = !((uvVoxelMap[index] >> index8) & 0x1);
+    unsigned char tmp = !((uvVoxelMap[index] >> index8) & 0x1);
     if(!tmp) uvVoxelMap[index] = (uvVoxelMap[index] & (0xFF & ~(0x1 << index8)));
     else uvVoxelMap[index] = (uvVoxelMap[index] | (0x00 | (0x1 << index8)));
   }
@@ -84,8 +94,10 @@ bool Individual::operator<(const Individual& other) const {
 }
 
 void Individual::operator=(const Individual& other) {
-  if(uvVoxelMap) delete uvVoxelMap;
-  uvVoxelMap = other.uvVoxelMap;
+  int dim = other.dim8x >> 3;
+  if(!uvVoxelMap) uvVoxelMap = new unsigned char[dim*dim];
+  for(int i=0;i<dim*dim;i++)
+    uvVoxelMap[i] = other.uvVoxelMap[i];
   dim8x = other.dim8x;
   fitness = other.fitness;
 }

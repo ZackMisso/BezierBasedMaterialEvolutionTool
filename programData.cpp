@@ -6,13 +6,15 @@ ProgramData::ProgramData() {
   mutationChance = .800f;
   crossoverChance = .200f;
   crossoverWeight = .500f;
-  mutationRate = 10;
-  crossoverRate = 10;
+  mutationRate = 3;
+  crossoverRate = 2;
   printingPopulationData = false;
-  printingBestIndividual = false;
+  printingBestIndividual = true;
   printingAllIndividuals = false;
   brokenTests = false;
-  uvDimension = 40;
+  uvDimension = 4;
+  totalGenerations = 1000;
+  populationSize = 1000;
 }
 
 ProgramData::~ProgramData() {
