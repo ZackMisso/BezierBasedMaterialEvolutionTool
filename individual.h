@@ -16,6 +16,7 @@ public:
   void randomize(MatData* matData);
   int compare(const Individual& other) const;
   void calculateFitness(const Individual& desired);
+  void resetFitness();
   // mutation methods
   void mutate(int mutationRate);
   void crossover(const Individual& other,int crossoverRate);

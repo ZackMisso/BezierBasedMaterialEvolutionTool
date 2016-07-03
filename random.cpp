@@ -1,6 +1,5 @@
 #include "random.h"
 #include <stdlib.h>
-#include "matData.h"
 
 int Random::getRandomInt(int end) {
   return rand() % end;

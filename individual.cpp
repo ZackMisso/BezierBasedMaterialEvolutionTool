@@ -24,7 +24,14 @@ Individual::~Individual() {
 }
 
 void Individual::initialize(int dim) {
-  // to be implemented
+  dim8x = dim << 3;
+  if(uvVoxelMap) delete uvVoxelMap;
+  uvVoxelMap = new char(dim*dim);
+  fitness = 0x0;
+}
+
+void Individual::resetFitness() {
+  fitness = 0x0;
 }
 
 void Individual::randomize(MatData* matData) {
@@ -52,13 +59,20 @@ void Individual::mutate(int mutationRate) {
     int index = Random::getRandomInt(dim*dim);
     int index8 = Random::getRandomInt(8);
     char tmp = !((uvVoxelMap[index] >> index8) & 0x1);
-    if(tmp) uvVoxelMap[index] = (uvVoxelMap[index] & (0xFF & (0x1 << index8)));
+    if(tmp) uvVoxelMap[index] = (uvVoxelMap[index] & (0xFF & ~(0x1 << index8)));
     else uvVoxelMap[index] = (uvVoxelMap[index] | (0x00 | (0x1 << index8)));
   }
 }
 
 void Individual::crossover(const Individual& other,int crossoverRate) {
-  // to be implemented
+  int dim = dim8x >> 3;
+  int startX = Random::getRandomInt(dim - crossoverRate);
+  int startY = Random::getRandomInt(dim - crossoverRate);
+  for(int i=startY;i<crossoverRate+startY;i++) {
+    for(int j=startX;j<crossoverRate+startX;j++) {
+      uvVoxelMap[i*dim + j] = other.uvVoxelMap[i*dim + j];
+    }
+  }
 }
 
 bool Individual::operator>(const Individual& other) const {
