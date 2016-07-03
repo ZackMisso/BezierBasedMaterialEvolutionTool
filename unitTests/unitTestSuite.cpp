@@ -5,8 +5,14 @@ using namespace std;
 
 bool UnitTestSuite::runTests() {
   if(!mergeSortTest()) return false;
-  if(!crossoverTest()) return false;
-  if(!mutationTest()) return false;
+  if(!crossoverTest()) {
+    cout << "Crossover Test Failed" << endl;
+    return false;
+  }
+  if(!mutationTest()) {
+    cout << "Mutation Test Failed" << endl;
+    return false;
+  }
   return true;
 }
 
@@ -62,14 +68,20 @@ bool UnitTestSuite::crossoverTest() {
     one[i] = 0x0;
     two[i] = 0x0;
   }
+  two[5] = 0xFF;
   two[6] = 0xFF;
-  two[7] = 0xFF;
+  two[9] = 0xFF;
   two[10] = 0xFF;
-  two[11] = 0xFF;
-  crossover(one,two,1,1,2);
+  crossover(one,two,1,1,4,2);
+  //for(int i=0;i<4;i++) {
+  //  for(int j=0;j<4;j++)
+  //    cout << (int)one[i*4+j] << " ";
+  //  cout << endl;
+  //}
   bool pass = true;
   for(int i=0;i<16;i++) {
-    if(i>5&&i<12) {
+    if(i==5 || i==6 || i==9 || i==10) {
+      //cout << (int)one[i] << endl;
       if(one[i] != 0xFF) pass = false;
     }
     else if(one[i] != 0x00) pass = false;
@@ -79,10 +91,12 @@ bool UnitTestSuite::crossoverTest() {
   return pass;
 }
 
-void UnitTestSuite::crossover(unsigned char* one,unsigned char* two,int startX,int startY,int dim) {
-  for(int i=startY;i<startY+dim;i++)
-    for(int j=startX;j<startX+dim;j++)
+void UnitTestSuite::crossover(unsigned char* one,unsigned char* two,int startX,int startY,int dim,int len) {
+  for(int i=startY;i<startY+len;i++)
+    for(int j=startX;j<startX+len;j++) {
+      //cout << i*dim+j << " " << endl;
       one[i*dim+j] = two[i*dim+j];
+    }
 }
 
 bool UnitTestSuite::mutationTest() {
@@ -93,6 +107,9 @@ bool UnitTestSuite::mutationTest() {
   mutate(one,0,3);
   mutate(one,1,3);
   mutate(one,2,1);
+  //cout << (int)one[0] << endl;
+  //cout << (int)one[1] << endl;
+  //cout << (int)one[2] << endl;
   if(one[0] != 0x08) return false;
   if(one[1] != 0xF7) return false;
   if(one[2] != 0x03) return false;
@@ -102,6 +119,10 @@ bool UnitTestSuite::mutationTest() {
 
 void UnitTestSuite::mutate(unsigned char* one,int index,int index8) {
   char tmp = !((one[index] >> index8) & 0x1);
-  if(tmp) one[index] = (one[index] & (0xFF & ~(0x1 << index8)));
+  //cout << "Tmp: " << (int)tmp << endl;
+  //cout << "If True: " << (int)(one[index] & (0xFF & ~(0x1 << index8))) << endl;
+  //cout << "0xF7: " << (int)0xF7 << endl;
+  if(!tmp) one[index] = (one[index] & (0xFF & ~(0x1 << index8)));
   else one[index] = (one[index] | (0x00 | (0x1 << index8)));
+  //cout << "ACTUAL :: " << (int)one[index] << endl;
 }

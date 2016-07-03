@@ -59,7 +59,7 @@ void Individual::mutate(int mutationRate) {
     int index = Random::getRandomInt(dim*dim);
     int index8 = Random::getRandomInt(8);
     char tmp = !((uvVoxelMap[index] >> index8) & 0x1);
-    if(tmp) uvVoxelMap[index] = (uvVoxelMap[index] & (0xFF & ~(0x1 << index8)));
+    if(!tmp) uvVoxelMap[index] = (uvVoxelMap[index] & (0xFF & ~(0x1 << index8)));
     else uvVoxelMap[index] = (uvVoxelMap[index] | (0x00 | (0x1 << index8)));
   }
 }
